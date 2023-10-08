@@ -7,8 +7,9 @@ from ..ModelElements.PoligonalModel import PoligonalModel
 from IModelChanger import IModelChanger
 from IModelChangedObserver import IModelChangedObserver
 
+@zope.interface.implementer(IModelChanger)
 class ModelSrore:
-    zope.interface.implements( IModelChanger)
+    # zope.interface.implements(IModelChanger)
     models = list[PoligonalModel]
     scenes = list[Scene]
     flashes = list[Flash]
