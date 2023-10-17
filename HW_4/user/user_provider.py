@@ -3,7 +3,7 @@ from user_repository import UserRepository
 class UserProvider:
     _user_repository: UserRepository
 
-    def __init__(self, user_repository: UserRepository) -> None:
+    def __init__(self, user_repository: UserRepository=UserRepository()) -> None:
         self._user_repository = user_repository
 
     def add_user(self, name: str, hash_password: int, card_number: int):
