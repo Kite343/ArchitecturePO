@@ -1,0 +1,332 @@
+openapi: 3.0.1
+info:
+  title: Получение информации о клиентах
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/api/v1
+paths:
+  /clients:
+    get:
+      summary: Метод получения списка клиентов
+      tags: 
+        - Clients
+      operationId: getAllClients
+      responses:
+        "200":
+          description: Успешный ответ со спиcком клиентов
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Clients"
+        "default":
+          description: Всё остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Метод добавления нового клиента в список
+      tags: 
+        - Clients
+      operationId: createClient
+      requestBody:
+        required: true
+        content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Client" 
+      responses:
+        "200":
+          description: Усшный ответ добавления нового клиента
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Client"
+        "default":
+          description: Всё остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /clients/{idClient}:
+    get:
+      summary: Метод получения клиента по id
+      tags:
+        - Clients
+      operationId: getClientId
+      parameters:
+        - name: idClient
+          in: path
+          required: true
+          description: id Client
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Усшный ответ получения клиента по id
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Client"
+        "default":
+          description: Всё остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"     
+    delete:
+      summary: Удаление клиента по id
+      tags:
+        - Clients
+      operationId: deleteClientById
+      parameters:
+        - name: idClient
+          in: path
+          required: true
+          description: id Client
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Успешное удаление клиента по id
+          content:
+            adplication/json: {}
+        "default":
+          description: Всё остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error" 
+                
+                
+  /clouds:               
+    get:
+      summary: Получения списка серверов
+      tags: 
+        - Clouds
+      operationId: getAllclouds
+      responses:
+        "200":
+          description: Успешный ответ со спиcком серверов
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/AllClouds"
+        "default":
+          description: Всё остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error" 
+                
+    post:
+      summary: Метод добавления нового сервера в список
+      tags: 
+        - Clouds
+      operationId: createCloud
+      requestBody:
+        required: true
+        content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Cloud" 
+      responses:
+        "200":
+          description: Усшный ответ добавления нового клиента
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Cloud"
+        "default":
+          description: Всё остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"                
+                
+  /clouds/{idCloud}:
+    get:
+      summary: Метод получения сервера по id
+      tags:
+        - Clouds
+      operationId: getCloudId
+      parameters:
+        - name: idCloud
+          in: path
+          required: true
+          description: id Cloud
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Успешный ответ получения сервера по id
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Cloud"
+        "default":
+          description: Всё остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Удаление клиента по id
+      tags:
+        - Clouds
+      operationId: deleteCloudById
+      parameters:
+        - name: idCloud
+          in: path
+          required: true
+          description: id Cloud
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Успешное удаление  сервера по id
+          content:
+            adplication/json: {}
+        "default":
+          description: Всё остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+  /editClouds/{idCloud}{OS}{RAM}{CPU}{SSD}{idClient}:                
+    put:
+      tags:
+        - Clouds
+      summary: Изменение сервера
+      operationId: updateClouds
+      parameters:
+        - name: idCloud
+          in: path
+          required: true
+          description: id Cloud (в какой экземляр сервера будут вносится изменения)
+          schema:
+            type: integer
+        - name: OS
+          in: path
+          required: true
+          description: операционная система
+          schema:
+            type: string          
+        - name: RAM
+          in: path
+          required: true
+          description: оперативная память 
+          schema:
+            type: integer
+        - name: CPU
+          in: path
+          required: true
+          description: процессор
+          schema:
+            type: integer
+        - name: SSD
+          in: path
+          required: true
+          description: объем ssd диска
+          schema:
+            type: integer
+        - name: idClient
+          in: path
+          required: true
+          description: idClient 
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Cloud" 
+      responses:
+        "200":
+          description: сервер изменён
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Cloud"
+        "default":
+          description: Исключениия
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"            
+
+  
+
+components:
+  schemas:
+    Client:
+      type: object
+      required:
+        - idClient
+        - name
+      properties:
+        idClient:
+          type: integer 
+          example: 1
+          description: Id клиента
+        name:
+          type: string
+          example: Кирилл
+          description: Имя клиента
+    Clients:
+      type: array
+      items:
+        $ref: "#/components/schemas/Client"
+    Error:
+      type: object
+      required:
+        - codeError
+        - messageError
+      properties:
+        codeError:
+          type: string
+          example: 123f456
+          description: Код ошибки
+        messageError:
+          type: string
+          example: error
+          description: Сообщение ошибки
+    Cloud:
+      type: object
+      required:
+        - OS
+        - RAM
+        - CPU
+        - SSD
+        - idClient
+      properties:
+        OS:
+          type: string
+          enum:
+            - Windows
+            - Linux
+          example: Windows  
+        RAM:
+          type: integer
+          example: 256
+          description: Количество оперативной памяти
+        CPU:
+          type: integer
+          example: 8
+          description: Количество ядер процессора 
+        SSD:
+          type: integer
+          example: 1024
+          description: Количетсво ssd памяти
+        idClient:
+          type: integer
+          example: 1
+        idCloud:
+          type: integer
+          example: 13  
+    AllClouds:
+        type: array
+        items:
+          $ref: "#/components/schemas/Cloud"  
